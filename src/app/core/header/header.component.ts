@@ -24,12 +24,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.isLoggedIn = sessionStorage.getItem('authtoken') !== null;
+
   }
 
   logoutHandler() {
     this.userService.logout();
-    // this.router.navigate(['/']);
   }
 
 }
