@@ -56,8 +56,9 @@ export class UserService {
 
   }
 
-  getUserInfo(){
-    
+  getUserInfo() {
+    const id = sessionStorage.getItem('userId');
+    return this.http.get(`${this.baseURL}/${this.appKey}/${id}`, this.httpKinveyOptions);
   }
 
 

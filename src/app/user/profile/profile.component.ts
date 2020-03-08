@@ -15,15 +15,18 @@ function passwordMatch(c: AbstractControl) {
 })
 export class ProfileComponent implements OnInit {
 
+  userInfo: any;
+
   registerForm: FormGroup;
 
   // tslint:disable-next-line: max-line-length
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
   phoneRegex = /[0-9]+/g;
 
-  constructor(fb: FormBuilder,
-              private userService: UserService,
-              private router: Router
+  constructor(
+    fb: FormBuilder,
+    private userService: UserService,
+    private router: Router
   ) {
     this.registerForm = fb.group({
       username: ['', [Validators.required, Validators.maxLength(40)]],
@@ -43,7 +46,22 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
+  updateProfile(info) {
+    this.registerForm.patchValue({
+      username: this.userInfo.username,
+      email: this.userInfo.email,
+      phone: this.userInfo.phone,
+      country: this.userInfo.country,
+    });
+  }
+
   ngOnInit() {
+    this.userService.getUserInfo().subscribe(
+      res => {
+        this.userInfo = res;
+        this.updateProfile(res);
+      }
+    );
   }
 
 }

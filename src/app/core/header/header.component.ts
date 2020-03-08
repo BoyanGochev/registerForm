@@ -17,15 +17,12 @@ export class HeaderComponent implements OnInit {
   ) {
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-
         this.isLoggedIn = sessionStorage.getItem('authtoken') !== null;
       }
     });
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   logoutHandler() {
     this.userService.logout();

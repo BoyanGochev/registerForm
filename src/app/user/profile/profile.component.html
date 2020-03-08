@@ -1,67 +1,69 @@
-<form [formGroup]="registerForm" (ngSubmit)="registerHandler(registerForm.value)">
+<ng-container *ngIf="userInfo">
 
-    <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+    <form [formGroup]="registerForm" (ngSubmit)="registerHandler(registerForm.value)">
 
-    </div>
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-3 font-weight-normal">Profile information</h1>
 
-    <div class="form-label-group">
-        <label for="inputUsername">Username</label>
-        <input #username formControlName="username" type="text" id="inputUsername" name="username" class="form-control" placeholder="Please enter your username" autofocus="">
-        <p class="error" *ngIf="registerForm.get('username').errors?.required && registerForm.get('username').touched">Username is required!</p>
-        <p class="error" *ngIf="registerForm.controls['username'].hasError('maxlength')">Username should be under 40 characters!</p>
-
-    </div>
-
-
-    <div class="form-label-group" style="display: none;">
-        <label for="inputEmail">Email</label>
-        <input formControlName="email" type="email" id="inputEmail" name="email" class="form-control" placeholder="Please enter your email">
-        <p class="error" *ngIf="registerForm.get('email').errors?.required && registerForm.get('email').touched">Email is required!</p>
-        <p class="error" *ngIf="registerForm.get('email').errors?.pattern">Please enter valid email!</p>
-    </div>
-
-    <div class="form-label-group">
-        <label for="inputPhone">Phone number</label>
-        <input formControlName="phone" type="text" id="inputPhone" name="phone" class="form-control" placeholder="Please enter your phone number">
-        <p class="error" *ngIf="registerForm.get('phone').errors?.required && registerForm.get('phone').touched">Please enter phone number</p>
-        <p class="error" *ngIf="registerForm.get('phone').errors?.pattern">Incorrect phone number</p>
-        <p class="error" *ngIf="registerForm.get('phone').errors?.maxlength">Phone number should be less than 15 digits</p>
-    </div>
-
-    <div class="form-label-group">
-        <label for="country ">Country</label>
-        <select formControlName="country" name="country" class="form-control">
-            <option>Bulgaria</option>
-            <option>France</option>
-            <option>USA</option>
-            <option>England</option>
-            <option>Japan</option>
-        </select>
-        <p class="error" *ngIf="registerForm.get('country').errors?.required">Please select country!</p>
-    </div>
-    <div formGroupName="passwords">
-        <div class="form-label-group">
-            <label for="inputPassword">Password</label>
-            <input formControlName="password" type="password" id="inputPassword" name="password" class="form-control" placeholder="Please enter your password">
-            <p class="error" *ngIf="registerForm.get('passwords.password')?.errors?.required && registerForm.get('passwords.password').touched">Passwords is required!</p>
-            <p class="error" *ngIf="registerForm.get('passwords.password')?.errors?.maxlength">Password should be under 40 characters!</p>
         </div>
 
         <div class="form-label-group">
-            <label for="inputRePassword">Re-Password</label>
-            <input formControlName="rePassword" type="password" id="inputRePassword" name="rePassword" class="form-control" placeholder="Please enter your password again">
-            <p class="error" *ngIf="registerForm.get('passwords.rePassword')?.errors?.required && registerForm.get('passwords.rePassword').touched">Please enter your password again!</p>
+            <label for="inputUsername">Username</label>
+            <input #username formControlName="username" type="text" id="inputUsername" name="username" class="form-control" placeholder="Please enter your username">
+            <p class="error" *ngIf="registerForm.get('username').errors?.required && registerForm.get('username').touched">Username is required!</p>
+            <p class="error" *ngIf="registerForm.controls['username'].hasError('maxlength')">Username should be under 40 characters!</p>
+
         </div>
-        <p class="error" *ngIf="registerForm.get('passwords')?.errors?.passwordMatch">Passwords don't match</p>
-    </div>
-
-    <label for=""></label>
-
-    <button [disabled]="registerForm.invalid" class="btn btn-lg btn-dark btn-block button">Register</button>
 
 
-</form>
+        <div class="form-label-group" style="display: none;">
+            <label for="inputEmail">Email</label>
+            <input formControlName="email" type="email" id="inputEmail" name="email" class="form-control" placeholder="Please enter your email">
+            <p class="error" *ngIf="registerForm.get('email').errors?.required && registerForm.get('email').touched">Email is required!</p>
+            <p class="error" *ngIf="registerForm.get('email').errors?.pattern">Please enter valid email!</p>
+        </div>
+
+        <div class="form-label-group">
+            <label for="inputPhone">Phone number</label>
+            <input formControlName="phone" type="text" id="inputPhone" name="phone" class="form-control" placeholder="Please enter your phone number">
+            <p class="error" *ngIf="registerForm.get('phone').errors?.required && registerForm.get('phone').touched">Please enter phone number</p>
+            <p class="error" *ngIf="registerForm.get('phone').errors?.pattern">Incorrect phone number</p>
+            <p class="error" *ngIf="registerForm.get('phone').errors?.maxlength">Phone number should be less than 15 digits</p>
+        </div>
+
+        <div class="form-label-group">
+            <label for="country ">Country</label>
+            <select formControlName="country" name="country" class="form-control">
+                <option>Bulgaria</option>
+                <option>France</option>
+                <option>USA</option>
+                <option>England</option>
+                <option>Japan</option>
+            </select>
+            <p class="error" *ngIf="registerForm.get('country').errors?.required">Please select country!</p>
+        </div>
+        <div formGroupName="passwords">
+            <div class="form-label-group">
+                <label for="inputPassword">Password</label>
+                <input formControlName="password" type="password" id="inputPassword" name="password" class="form-control" placeholder="Please enter your new password">
+                <p class="error" *ngIf="registerForm.get('passwords.password')?.errors?.required && registerForm.get('passwords.password').touched">Passwords is required!</p>
+                <p class="error" *ngIf="registerForm.get('passwords.password')?.errors?.maxlength">Password should be under 40 characters!</p>
+            </div>
+
+            <div class="form-label-group">
+                <label for="inputRePassword">Re-Password</label>
+                <input formControlName="rePassword" type="password" id="inputRePassword" name="rePassword" class="form-control" placeholder="Please enter your password again">
+                <p class="error" *ngIf="registerForm.get('passwords.rePassword')?.errors?.required && registerForm.get('passwords.rePassword').touched">Please enter your password again!</p>
+            </div>
+            <p class="error" *ngIf="registerForm.get('passwords')?.errors?.passwordMatch">Passwords don't match</p>
+        </div>
+
+        <label for=""></label>
+
+        <button [disabled]="registerForm.invalid" class="btn btn-lg btn-dark btn-block button">Register</button>
 
 
-{{registerForm.value | json}}
+    </form>
+</ng-container>
+
+<ng-container *ngIf="!userInfo">Loading...</ng-container>
