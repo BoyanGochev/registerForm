@@ -1,6 +1,6 @@
 <ng-container *ngIf="userInfo">
 
-    <form [formGroup]="registerForm" (ngSubmit)="registerHandler(registerForm.value)">
+    <form [formGroup]="registerForm" (ngSubmit)="editHandler(registerForm.value)">
 
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal">Profile information</h1>
@@ -60,7 +60,7 @@
 
         <label for=""></label>
 
-        <button [disabled]="registerForm.invalid" class="btn btn-lg btn-dark btn-block button">Register</button>
+        <button [disabled]="registerForm.invalid" class="btn btn-lg btn-dark btn-block button">Edit profile</button>
 
 
     </form>

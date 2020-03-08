@@ -57,8 +57,26 @@ export class UserService {
   }
 
   getUserInfo() {
+    const httpOpitions = {
+      headers: new HttpHeaders({
+        Authorization: `Kinvey ${sessionStorage.getItem('authtoken')}`,
+        'Content-Type': 'application/json'
+      })
+    }
     const id = sessionStorage.getItem('userId');
-    return this.http.get(`${this.baseURL}/${this.appKey}/${id}`, this.httpKinveyOptions);
+    return this.http.get(`${this.baseURL}/${this.appKey}/${id}`, httpOpitions);
+  }
+
+  editUserInfo(input: any) {
+    const id = sessionStorage.getItem('userId');
+    const data = {
+      username: input.username,
+      email: input.email,
+      phone: input.phone,
+      country: input.country,
+      password: input.passwords.password
+    };
+    return this.http.put(`${this.baseURL}/${this.appKey}/${id}`, JSON.stringify(data), this.httpKinveyOptions);
   }
 
 
@@ -66,6 +84,7 @@ export class UserService {
     sessionStorage.setItem('authtoken', userInfo._kmd.authtoken);
     sessionStorage.setItem('name', userInfo.username);
     sessionStorage.setItem('userId', userInfo._id);
+    console.log(sessionStorage.getItem('authtoken'));
 
   }
 
