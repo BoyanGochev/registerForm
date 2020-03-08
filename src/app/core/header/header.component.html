@@ -1,0 +1,21 @@
+<header class="masthead mb-auto">
+    <nav class="site-header sticky-top py-1">
+        <div class="container d-flex flex-column flex-md-row justify-content-between">
+
+
+            <a class="py-2 d-none d-md-inline-block" routerLink="/">Home</a>
+
+            <ng-container *ngIf="isLoggedIn">
+                <a class="py-2 d-none d-md-inline-block" routerLink="/profile">Profile</a>
+                <a class="py-2 d-none d-md-inline-block" routerLink="/logout" (click)="logoutHandler()">Logout</a>
+            </ng-container>
+
+            <ng-container *ngIf="!isLoggedIn">
+                <a class="py-2 d-none d-md-inline-block" routerLink="/login">Login</a>
+                <a class="py-2 d-none d-md-inline-block" routerLink="/register">Register</a>
+            </ng-container>
+
+
+        </div>
+    </nav>
+</header>

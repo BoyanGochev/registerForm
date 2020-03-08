@@ -1,0 +1,34 @@
+input.form-control {
+    width: 50%;
+    margin: 0 auto;
+}
+
+textarea.form-control {
+    width: 50%;
+    margin: 0 auto;
+    resize: none;
+    height: 20vh;
+}
+
+form label {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+    margin-top: 2%;
+}
+
+.button {
+    margin: 0 auto;
+    width: 25%;
+}
+
+select {
+    margin: 0 auto;
+    width: 50%;
+}
+
+.error {
+    text-align: center;
+    color: red;
+}

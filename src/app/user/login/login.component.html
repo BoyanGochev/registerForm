@@ -1,0 +1,42 @@
+<form #loginForm="ngForm" (ngSubmit)="loginHandler(loginForm.value)">
+
+
+    <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+
+    </div>
+
+    <div class="form-label-group">
+        <label for="inputUsername">Username</label>
+        <input #username="ngModel" ngModel type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus="">
+        <p class="error" *ngIf="username.invalid && username.touched">Please enter username</p>
+    </div>
+
+    <div class="form-label-group">
+        <label for="inputPassword">Password</label>
+        <input #password="ngModel" ngModel type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+        <p class="error" *ngIf="password.invalid && password.touched">Please enter password</p>
+    </div>
+
+    <div class="error" *ngIf="isWrong">Wrong login credentials</div>
+
+    <label for=""></label>
+
+    <button [disabled]="loginForm.invalid" class="btn btn-lg btn-dark btn-block button">Login</button>
+
+    <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+    </label>
+
+    <div class="text-center mb-4">
+        <p class="alreadyUser"> Don't have account? Then just
+            <a routerLink="/register">Register</a>!
+        </p>
+    </div>
+</form>
+
+
+
+
+
+{{loginForm.value | json}}

@@ -1,0 +1,36 @@
+input.form-control {
+    width: 50%;
+    margin: 0 auto;
+}
+
+textarea.form-control {
+    width: 50%;
+    margin: 0 auto;
+    resize: none;
+    height: 20vh;
+}
+
+form label {
+    display: block;
+    margin: 0 auto;
+    width: 50%;
+    text-align: center;
+    margin-top: 2%;
+}
+
+.button {
+    margin: 0 auto;
+    width: 25%;
+}
+
+.error {
+    text-align: center;
+    color: red;
+}
+
+// input.ng-invalid.ng-touched {
+//     border: 1px solid red;
+// }
+// input.ng-valid {
+//     border: green;
+// }
