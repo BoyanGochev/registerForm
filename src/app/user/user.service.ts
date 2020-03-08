@@ -37,7 +37,6 @@ export class UserService {
     return this.http.post(`${this.baseURL}/${this.appKey}/login`, JSON.stringify(input), this.httpBasicOptions);      // .subscribe({
   }
 
-
   logout() {
     sessionStorage.clear();
     this.router.navigate(['/login']);
@@ -55,6 +54,10 @@ export class UserService {
       console.log(res);
     });
 
+  }
+
+  getUserInfo(){
+    
   }
 
 
