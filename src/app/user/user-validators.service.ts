@@ -45,4 +45,12 @@ export class UserValidatorsService {
         map(users => !!users.length)
       );
   }
+
+  checkEditUser(username: any) {
+    return this.http.get(`${this.baseURL}/${this.appKey}`, this.userService.httpKinveyOptions)
+      .pipe(
+        map(users => users.filter((user) => user.username === username)),
+        map(users => !!users.length)
+      );
+  }
 }

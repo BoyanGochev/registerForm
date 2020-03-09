@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { UserValidatorsService } from '../user-validators.service';
+import { map } from 'rxjs/operators';
 
 
 function passwordMatch(c: AbstractControl) {
@@ -17,7 +19,7 @@ export class ProfileComponent implements OnInit {
 
   userInfo: any;
 
-  registerForm: FormGroup;
+  editForm: FormGroup;
 
   // tslint:disable-next-line: max-line-length
   emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g;
@@ -26,10 +28,11 @@ export class ProfileComponent implements OnInit {
   constructor(
     fb: FormBuilder,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private userValidatorsService: UserValidatorsService
   ) {
-    this.registerForm = fb.group({
-      username: ['', [Validators.required, Validators.maxLength(40)]],
+    this.editForm = fb.group({
+      username: ['', [Validators.required, Validators.maxLength(40)], this.validateUserNotTaken.bind(this)],
       email: ['', [Validators.required, Validators.pattern(this.emailRegex)]],
       phone: ['', [Validators.required, Validators.pattern(/[0-9]+/g), Validators.maxLength(15)]],
       country: ['', [Validators.required]],
@@ -47,7 +50,7 @@ export class ProfileComponent implements OnInit {
   }
 
   updateProfile(info) {
-    this.registerForm.patchValue({
+    this.editForm.patchValue({
       username: this.userInfo.username,
       email: this.userInfo.email,
       phone: this.userInfo.phone,
@@ -70,6 +73,14 @@ export class ProfileComponent implements OnInit {
         this.userInfo = res;
         this.updateProfile(res);
       }
+    );
+  }
+
+  validateUserNotTaken(c: AbstractControl) {
+    return this.userValidatorsService.checkEditUser(c.value).pipe(
+      map(res => {
+        return res ? { userTaken: true } : null;
+      })
     );
   }
 
