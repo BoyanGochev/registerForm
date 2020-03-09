@@ -58,7 +58,6 @@ export class ProfileComponent implements OnInit {
   editHandler(data) {
     this.userService.editUserInfo(data).subscribe(
       res => {
-        console.log(res)
         this.userService.sethAuthInfo(res);
         this.router.navigate(['']);
       }

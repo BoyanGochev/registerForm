@@ -10,7 +10,7 @@
         <input #username formControlName="username" type="text" id="inputUsername" name="username" class="form-control" placeholder="Please enter your username" autofocus="">
         <p class="error" *ngIf="registerForm.get('username').errors?.required && registerForm.get('username').touched">Username is required!</p>
         <p class="error" *ngIf="registerForm.controls['username'].hasError('maxlength')">Username should be under 40 characters!</p>
-
+        <p class="error" *ngIf="registerForm.get('username').errors?.userTaken">Username taken</p>
     </div>
 
 
@@ -19,6 +19,7 @@
         <input formControlName="email" type="email" id="inputEmail" name="email" class="form-control" placeholder="Please enter your email">
         <p class="error" *ngIf="registerForm.get('email').errors?.required && registerForm.get('email').touched">Email is required!</p>
         <p class="error" *ngIf="registerForm.get('email').errors?.pattern">Please enter valid email!</p>
+        <p class="error" *ngIf="registerForm.get('email').errors?.emailTaken">Email taken</p>
     </div>
 
     <div class="form-label-group">
@@ -46,6 +47,7 @@
             <input formControlName="password" type="password" id="inputPassword" name="password" class="form-control" placeholder="Please enter your password">
             <p class="error" *ngIf="registerForm.get('passwords.password')?.errors?.required && registerForm.get('passwords.password').touched">Passwords is required!</p>
             <p class="error" *ngIf="registerForm.get('passwords.password')?.errors?.maxlength">Password should be under 40 characters!</p>
+
         </div>
 
         <div class="form-label-group">
@@ -67,6 +69,3 @@
     </div>
 
 </form>
-
-
-{{registerForm.value | json}}
