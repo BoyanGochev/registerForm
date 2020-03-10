@@ -25,7 +25,8 @@
     <button [disabled]="loginForm.invalid" class="btn btn-lg btn-dark btn-block button">Login</button>
 
     <label>
-        <input type="checkbox" checked="checked" name="remember"> Remember me
+        <input #remember="ngModel" ngModel type="checkbox" checked="" name="remember"> Remember me
+        <p *ngIf="remember.touched">Touched</p>
     </label>
 
     <div class="text-center mb-4">

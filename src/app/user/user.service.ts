@@ -36,7 +36,7 @@ export class UserService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(input: object) {
-    return this.http.post(`${this.baseURL}/${this.appKey}/login`, JSON.stringify(input), this.httpBasicOptions);      // .subscribe({
+    return this.http.post(`${this.baseURL}/${this.appKey}/login`, JSON.stringify(input), this.httpBasicOptions);
   }
 
   logout() {
@@ -78,8 +78,5 @@ export class UserService {
     sessionStorage.setItem('authtoken', userInfo._kmd.authtoken);
     sessionStorage.setItem('name', userInfo.username);
     sessionStorage.setItem('userId', userInfo._id);
-    console.log(sessionStorage.getItem('authtoken'));
-
   }
-
 }

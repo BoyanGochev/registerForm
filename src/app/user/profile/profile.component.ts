@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { UserValidatorsService } from '../user-validators.service';
-import { map } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 
 
 function passwordMatch(c: AbstractControl) {
@@ -74,6 +74,8 @@ export class ProfileComponent implements OnInit {
         this.updateProfile(res);
       }
     );
+
+    // this.formControlValueChanged();
   }
 
   validateUserNotTaken(c: AbstractControl) {
@@ -83,5 +85,14 @@ export class ProfileComponent implements OnInit {
       })
     );
   }
+
+  // formControlValueChanged() {
+
+  //   const usernameControl = this.editForm.get('username');
+  //   this.editForm.get('username').valueChanges.subscribe(
+  //     res => console.log(res)
+  //   );
+
+  // }
 
 }
