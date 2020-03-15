@@ -8,7 +8,7 @@
 
     <div class="form-label-group">
         <label for="inputUsername">Username</label>
-        <input #username="ngModel" ngModel type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required autofocus="">
+        <input #username="ngModel" ngModel type="text" id="inputUsername" name="username" class="form-control" placeholder="Username" required>
         <p class="error" *ngIf="username.invalid && username.touched">Please enter username</p>
     </div>
 

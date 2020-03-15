@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserService } from './user.service';
-import { map, filter } from 'rxjs/operators';
-import { AbstractControl } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
+
+const baseURL = environment.baseURL;
+const appSecret = environment.appSecret;
+const appKey = environment.appKey;
+const appMasterSecret = environment.appMasterSecret;
 
 
 
@@ -11,16 +16,10 @@ import { AbstractControl } from '@angular/forms';
 })
 export class UserValidatorsService {
 
-
-  baseURL = 'https://baas.kinvey.com/user';
-  appSecret = '134b0d578bb14983843806324482d91c';
-  appKey = 'kid_Hk_o7oWrI';
-  appMasterSecret = '56d6e0ec09374e12a3db7e022579cd08';
-
   get httpMasterOptions() {
     return {
       headers: new HttpHeaders({
-        Authorization: `Basic ${btoa(`${this.appKey}:${this.appMasterSecret}`)}`,
+        Authorization: `Basic ${btoa(`${appKey}:${appMasterSecret}`)}`,
         'Content-Type': 'application/json'
       })
     };
@@ -32,7 +31,7 @@ export class UserValidatorsService {
   ) { }
 
   checkEmail(email: any) {
-    return this.http.get(`${this.baseURL}/${this.appKey}`, this.httpMasterOptions)
+    return this.http.get(`${baseURL}/${appKey}`, this.httpMasterOptions)
       .pipe(
         map((users: Array<any>) => users.filter((user) => user.email === email)),
         map(users => !!users.length)
@@ -40,7 +39,7 @@ export class UserValidatorsService {
   }
 
   checkUser(username: any) {
-    return this.http.get(`${this.baseURL}/${this.appKey}`, this.httpMasterOptions)
+    return this.http.get(`${baseURL}/${appKey}`, this.httpMasterOptions)
       .pipe(
         map((users: Array<any>) => users.filter((user) => user.username === username)),
         map(users => !!users.length)
@@ -48,13 +47,11 @@ export class UserValidatorsService {
   }
 
   checkEditUser(username: any) {
-    return this.http.get(`${this.baseURL}/${this.appKey}`, this.userService.httpKinveyOptions)
+    return this.http.get(`${baseURL}/${appKey}`, this.userService.httpKinveyOptions)
       .pipe(
         map((users: Array<any>) => users.filter((user) => user.username === username)),
         map(users => !!users.length)
       );
   }
-
-
 
 }

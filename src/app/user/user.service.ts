@@ -1,8 +1,11 @@
 import { Injectable, Output, Input } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
-
+const baseURL = environment.baseURL;
+const appSecret = environment.appSecret;
+const appKey = environment.appKey;
 
 
 @Injectable({
@@ -10,15 +13,10 @@ import { Router } from '@angular/router';
 })
 export class UserService {
 
-  baseURL = 'https://baas.kinvey.com/user';
-  appSecret = '134b0d578bb14983843806324482d91c';
-  appKey = 'kid_Hk_o7oWrI';
-
-
   get httpBasicOptions() {
     return {
       headers: new HttpHeaders({
-        Authorization: `Basic ${btoa(`${this.appKey}:${this.appSecret}`)}`,
+        Authorization: `Basic ${btoa(`${appKey}:${appSecret}`)}`,
         'Content-Type': 'application/json'
       })
     };
@@ -36,7 +34,7 @@ export class UserService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(input: object) {
-    return this.http.post(`${this.baseURL}/${this.appKey}/login`, JSON.stringify(input), this.httpBasicOptions);
+    return this.http.post(`${baseURL}/${appKey}/login`, JSON.stringify(input), this.httpBasicOptions);
   }
 
   logout() {
@@ -52,13 +50,13 @@ export class UserService {
       country: input.country,
       password: input.passwords.password
     };
-    return this.http.post(`${this.baseURL}/${this.appKey}`, JSON.stringify(data), this.httpBasicOptions);
+    return this.http.post(`${baseURL}/${appKey}`, JSON.stringify(data), this.httpBasicOptions);
 
   }
 
   getUserInfo() {
     const id = sessionStorage.getItem('userId');
-    return this.http.get(`${this.baseURL}/${this.appKey}/${id}`, this.httpKinveyOptions);
+    return this.http.get(`${baseURL}/${appKey}/${id}`, this.httpKinveyOptions);
   }
 
   editUserInfo(input: any) {
@@ -70,13 +68,13 @@ export class UserService {
       country: input.country,
       password: input.passwords.password
     };
-    return this.http.put(`${this.baseURL}/${this.appKey}/${id}`, JSON.stringify(data), this.httpKinveyOptions);
+    return this.http.put(`${baseURL}/${appKey}/${id}`, JSON.stringify(data), this.httpKinveyOptions);
   }
-
 
   sethAuthInfo(userInfo) {
     sessionStorage.setItem('authtoken', userInfo._kmd.authtoken);
     sessionStorage.setItem('name', userInfo.username);
     sessionStorage.setItem('userId', userInfo._id);
   }
+
 }
