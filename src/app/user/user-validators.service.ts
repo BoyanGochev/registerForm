@@ -34,7 +34,7 @@ export class UserValidatorsService {
   checkEmail(email: any) {
     return this.http.get(`${this.baseURL}/${this.appKey}`, this.httpMasterOptions)
       .pipe(
-        map(users => users.filter((user) => user.email === email)),
+        map((users: Array<any>) => users.filter((user) => user.email === email)),
         map(users => !!users.length)
       );
   }
@@ -42,7 +42,7 @@ export class UserValidatorsService {
   checkUser(username: any) {
     return this.http.get(`${this.baseURL}/${this.appKey}`, this.httpMasterOptions)
       .pipe(
-        map(users => users.filter((user) => user.username === username)),
+        map((users: Array<any>) => users.filter((user) => user.username === username)),
         map(users => !!users.length)
       );
   }
@@ -50,7 +50,7 @@ export class UserValidatorsService {
   checkEditUser(username: any) {
     return this.http.get(`${this.baseURL}/${this.appKey}`, this.userService.httpKinveyOptions)
       .pipe(
-        map(users => users.filter((user) => user.username === username)),
+        map((users: Array<any>) => users.filter((user) => user.username === username)),
         map(users => !!users.length)
       );
   }
