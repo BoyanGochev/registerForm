@@ -16,6 +16,8 @@ const appMasterSecret = environment.appMasterSecret;
 })
 export class UserValidatorsService {
 
+  myUsername;
+
   get httpMasterOptions() {
     return {
       headers: new HttpHeaders({
@@ -28,7 +30,9 @@ export class UserValidatorsService {
   constructor(
     private userService: UserService,
     private http: HttpClient
-  ) { }
+  ) {
+    this.myUsername = sessionStorage.getItem('name') || localStorage.getItem('name');
+   }
 
   checkEmail(email: any) {
     return this.http.get(`${baseURL}/${appKey}`, this.httpMasterOptions)
@@ -50,6 +54,7 @@ export class UserValidatorsService {
     return this.http.get(`${baseURL}/${appKey}`, this.userService.httpKinveyOptions)
       .pipe(
         map((users: Array<any>) => users.filter((user) => user.username === username)),
+        map((users: Array<any>) => users.filter((user) => user.username !== this.myUsername)),
         map(users => !!users.length)
       );
   }

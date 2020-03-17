@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   isWrong: boolean;
+  checked = true;
 
 
   constructor(
@@ -17,14 +18,17 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { }
 
-
-
   ngOnInit() { }
 
   loginHandler(data: any) {
     this.userService.login(data).subscribe(
-      res => {
-        this.userService.sethAuthInfo(res);
+      (userInfo: any) => {
+
+        if (this.checked) {
+          this.userService.sethLocalStorageAuthInfo(userInfo);
+        }
+
+        this.userService.sethAuthInfo(userInfo);
         this.router.navigate(['/home']);
       },
       err => {
@@ -33,7 +37,10 @@ export class LoginComponent implements OnInit {
         }
       }
     );
+  }
 
+  rememberMeHandler() {
+    this.checked = !this.checked;
   }
 
 }

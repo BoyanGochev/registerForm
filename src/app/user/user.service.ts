@@ -25,7 +25,7 @@ export class UserService {
   get httpKinveyOptions() {
     return {
       headers: new HttpHeaders({
-        Authorization: `Kinvey ${sessionStorage.getItem('authtoken')}`,
+        Authorization: `Kinvey ${sessionStorage.getItem('authtoken') || localStorage.getItem('authtoken')}`,
         'Content-Type': 'application/json'
       })
     };
@@ -39,6 +39,7 @@ export class UserService {
 
   logout() {
     sessionStorage.clear();
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 
@@ -55,12 +56,12 @@ export class UserService {
   }
 
   getUserInfo() {
-    const id = sessionStorage.getItem('userId');
+    const id = sessionStorage.getItem('userId') || localStorage.getItem('userId');
     return this.http.get(`${baseURL}/${appKey}/${id}`, this.httpKinveyOptions);
   }
 
   editUserInfo(input: any) {
-    const id = sessionStorage.getItem('userId');
+    const id = sessionStorage.getItem('userId') || localStorage.getItem('userId');
     const data = {
       username: input.username,
       email: input.email,
@@ -75,6 +76,12 @@ export class UserService {
     sessionStorage.setItem('authtoken', userInfo._kmd.authtoken);
     sessionStorage.setItem('name', userInfo.username);
     sessionStorage.setItem('userId', userInfo._id);
+  }
+
+  sethLocalStorageAuthInfo(userInfo) {
+    localStorage.setItem('authtoken', userInfo._kmd.authtoken);
+    localStorage.setItem('name', userInfo.username);
+    localStorage.setItem('userId', userInfo._id);
   }
 
 }

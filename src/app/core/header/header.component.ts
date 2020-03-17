@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   ) {
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-        this.isLoggedIn = sessionStorage.getItem('authtoken') !== null;
+        this.isLoggedIn = localStorage.getItem('authtoken') !== null || sessionStorage.getItem('authtoken') !== null;
       }
     });
   }

@@ -10,12 +10,11 @@ export class HomeComponent implements OnInit {
   isLoggedIn: boolean;
   username: string;
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
-    this.isLoggedIn = sessionStorage.getItem('authtoken') !== null;
-    this.username = sessionStorage.getItem('name');
+    this.isLoggedIn = localStorage.getItem('authtoken') !== null || sessionStorage.getItem('authtoken') !== null;
+    this.username = sessionStorage.getItem('name') || localStorage.getItem('name') ;
   }
 
- }
+}

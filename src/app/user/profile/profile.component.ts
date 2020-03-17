@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { UserValidatorsService } from '../user-validators.service';
-import { map, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 
 function passwordMatch(c: AbstractControl) {
@@ -18,7 +18,6 @@ function passwordMatch(c: AbstractControl) {
 export class ProfileComponent implements OnInit {
 
   userInfo: any;
-
   editForm: FormGroup;
 
   // tslint:disable-next-line: max-line-length
@@ -42,11 +41,6 @@ export class ProfileComponent implements OnInit {
       }, { validators: [passwordMatch] })
 
     });
-  }
-
-  registerHandler(data: object) {
-    this.userService.register(data);
-    this.router.navigate(['/']);
   }
 
   updateProfile(info) {
@@ -75,7 +69,6 @@ export class ProfileComponent implements OnInit {
       }
     );
 
-    // this.formControlValueChanged();
   }
 
   validateUserNotTaken(c: AbstractControl) {
@@ -85,14 +78,5 @@ export class ProfileComponent implements OnInit {
       })
     );
   }
-
-  // formControlValueChanged() {
-
-  //   const usernameControl = this.editForm.get('username');
-  //   this.editForm.get('username').valueChanges.subscribe(
-  //     res => console.log(res)
-  //   );
-
-  // }
 
 }
